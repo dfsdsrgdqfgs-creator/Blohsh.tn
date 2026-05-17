@@ -93,6 +93,10 @@ async function loadPosts(){
 
             <p>${post.content}</p>
 
+            <small>
+            ${new Date(post.createdAt).toLocaleString()}
+            </small>
+
             <hr>
 
             <input type="text"
@@ -192,6 +196,12 @@ async function loadComments(postId){
         <b>${comment.author}:</b>
 
         ${comment.content}
+
+        <br>
+
+        <small>
+        ${new Date(comment.createdAt).toLocaleString()}
+        </small>
 
         </p>
 
