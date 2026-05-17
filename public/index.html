@@ -28,6 +28,18 @@
 <button>Profile</button>
 </a>
 
+<a href="/users.html">
+<button>Users</button>
+</a>
+
+<a href="/admin.html">
+<button>Admin</button>
+</a>
+
+<button onclick="logout()">
+Logout
+</button>
+
 </div>
 
 <div id="posts"></div>
@@ -186,6 +198,14 @@ async function loadComments(postId){
         `;
 
     });
+
+}
+
+function logout(){
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login.html";
 
 }
 
