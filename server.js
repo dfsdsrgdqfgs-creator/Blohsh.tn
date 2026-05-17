@@ -219,6 +219,14 @@ app.get("/api/comments/:postId", async(req,res)=>{
 
 });
 
+app.get("/api/users", async(req,res)=>{
+
+    const users = await User.find();
+
+    res.json(users);
+
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
