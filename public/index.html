@@ -39,8 +39,12 @@
 const token = localStorage.getItem("token");
 
 if(!token){
+
     window.location.href = "/login.html";
+
 }
+
+const user = JSON.parse(atob(token.split(".")[1]));
 
 async function loadPosts(){
 
@@ -55,23 +59,44 @@ async function loadPosts(){
     posts.forEach(post=>{
 
         div.innerHTML += `
+
         <div class="card">
 
-            <h2>${post.title}</h2>
+            <div style="display:flex;align-items:center;gap:15px;">
+
+                <img src="/uploads/${user.avatar}"
+                width="60"
+                height="60"
+                style="border-radius:50%;object-fit:cover;">
+
+                <div>
+
+                    <h3>${post.author}</h3>
+
+                    <small>${post.title}</small>
+
+                </div>
+
+            </div>
 
             <p>${post.content}</p>
 
-            <small>By ${post.author}</small>
-
             <hr>
 
-            <input type="text" id="comment-${post._id}" placeholder="Write comment">
+            <input type="text"
+            id="comment-${post._id}"
+            placeholder="Write comment">
 
-            <button onclick="addComment('${post._id}')">Comment</button>
+            <button onclick="addComment('${post._id}')">
+
+                Comment
+
+            </button>
 
             <div id="comments-${post._id}"></div>
 
         </div>
+
         `;
 
         loadComments(post._id);
@@ -94,6 +119,7 @@ async function createPost(){
         body:JSON.stringify({
 
             title:document.getElementById("title").value,
+
             content:document.getElementById("content").value
 
         })
@@ -106,9 +132,8 @@ async function createPost(){
 
 async function addComment(postId){
 
-    const user = JSON.parse(atob(token.split(".")[1]));
-
-    const content = document.getElementById(`comment-${postId}`).value;
+    const content =
+    document.getElementById(`comment-${postId}`).value;
 
     await fetch("/api/comments",{
 
@@ -121,7 +146,9 @@ async function addComment(postId){
         body:JSON.stringify({
 
             postId,
+
             author:user.username,
+
             content
 
         })
@@ -134,18 +161,28 @@ async function addComment(postId){
 
 async function loadComments(postId){
 
-    const res = await fetch(`/api/comments/${postId}`);
+    const res =
+    await fetch(`/api/comments/${postId}`);
 
     const comments = await res.json();
 
-    const div = document.getElementById(`comments-${postId}`);
+    const div =
+    document.getElementById(`comments-${postId}`);
 
     div.innerHTML = "";
 
     comments.forEach(comment=>{
 
         div.innerHTML += `
-        <p><b>${comment.author}:</b> ${comment.content}</p>
+
+        <p>
+
+        <b>${comment.author}:</b>
+
+        ${comment.content}
+
+        </p>
+
         `;
 
     });
