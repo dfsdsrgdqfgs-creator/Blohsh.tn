@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Users</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+    Forum Users
+</div>
+
+<div class="container">
+
+<div id="users"></div>
+
+</div>
+
+<script>
+
+async function loadUsers(){
+
+    const res = await fetch("/api/users");
+
+    const users = await res.json();
+
+    const div = document.getElementById("users");
+
+    div.innerHTML = "";
+
+    users.forEach(user=>{
+
+        div.innerHTML += `
+
+        <div class="card">
+
+            <img src="/uploads/${user.avatar}"
+            width="80"
+            height="80"
+            style="border-radius:50%;object-fit:cover;">
+
+            <h2>${user.username}</h2>
+
+            <small>${user.email}</small>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+loadUsers();
+
+</script>
+
+</body>
+</html>
