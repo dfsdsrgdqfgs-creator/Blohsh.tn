@@ -23,26 +23,35 @@ app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads/");
+
+    destination:(req,file,cb)=>{
+
+        cb(null,"uploads/");
+
     },
-    filename: (req, file, cb) => {
+
+    filename:(req,file,cb)=>{
+
         cb(null, Date.now() + path.extname(file.originalname));
+
     }
+
 });
 
 const upload = multer({ storage });
 
 const SECRET = "forum_secret_key";
 
-function auth(req, res, next){
+function auth(req,res,next){
 
     const token = req.headers.authorization;
 
     if(!token){
+
         return res.status(401).json({
             message:"No token"
         });
+
     }
 
     try{
@@ -76,14 +85,14 @@ app.post("/api/register", upload.single("avatar"), async(req,res)=>{
 
     }
 
-    const hashed = await bcrypt.hash(password, 10);
+    const hashed = await bcrypt.hash(password,10);
 
     const user = new User({
 
         username,
         email,
-        password: hashed,
-        avatar: req.file ? req.file.filename : ""
+        password:hashed,
+        avatar:req.file ? req.file.filename : ""
 
     });
 
@@ -121,14 +130,19 @@ app.post("/api/login", async(req,res)=>{
 
     const token = jwt.sign({
 
-        id: user._id,
-        username: user.username
+        id:user._id,
+
+        username:user.username,
+
+        avatar:user.avatar
 
     }, SECRET);
 
     res.json({
+
         token,
         user
+
     });
 
 });
@@ -138,7 +152,9 @@ app.post("/api/posts", auth, async(req,res)=>{
     const post = new Post({
 
         title:req.body.title,
+
         content:req.body.content,
+
         author:req.user.username
 
     });
@@ -166,7 +182,9 @@ app.post("/api/comments", async(req,res)=>{
     const comment = new Comment({
 
         postId:req.body.postId,
+
         author:req.body.author,
+
         content:req.body.content
 
     });
