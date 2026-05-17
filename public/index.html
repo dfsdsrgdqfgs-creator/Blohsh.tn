@@ -90,6 +90,8 @@ async function loadForum(){
     <textarea id="content"
     placeholder="Write something..."></textarea>
 
+    <input type="file" id="image">
+
     <input type="text"
     id="search"
     placeholder="Search posts..."
@@ -210,6 +212,15 @@ async function loadPosts(){
 
             <p>${post.content}</p>
 
+            ${post.image ? `
+
+            <img src="/uploads/${post.image}"
+            style="width:100%;
+            border-radius:15px;
+            margin-top:15px;">
+
+            ` : ""}
+
             <small>
             ${new Date(post.createdAt).toLocaleString()}
             </small>
@@ -240,24 +251,37 @@ async function loadPosts(){
 
 async function createPost(){
 
+    const formData = new FormData();
+
+    formData.append(
+        "title",
+        document.getElementById("title").value
+    );
+
+    formData.append(
+        "content",
+        document.getElementById("content").value
+    );
+
+    formData.append(
+        "category",
+        document.getElementById("category").value
+    );
+
+    formData.append(
+        "image",
+        document.getElementById("image").files[0]
+    );
+
     await fetch("/api/posts",{
 
         method:"POST",
 
         headers:{
-            "Content-Type":"application/json",
             "Authorization":token
         },
 
-        body:JSON.stringify({
-
-            title:document.getElementById("title").value,
-
-            content:document.getElementById("content").value,
-
-            category:document.getElementById("category").value
-
-        })
+        body:formData
 
     });
 
