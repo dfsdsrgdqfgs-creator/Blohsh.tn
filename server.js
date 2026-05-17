@@ -135,7 +135,9 @@ app.post("/api/login", async(req,res)=>{
 
         username:user.username,
 
-        avatar:user.avatar
+        avatar:user.avatar,
+
+        role:user.role
 
     }, SECRET);
 
