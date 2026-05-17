@@ -138,9 +138,13 @@ async function loadForum(){
     <button>Users</button>
     </a>
 
+    ${user.role === "admin" ? `
+
     <a href="/admin.html">
     <button>Admin</button>
     </a>
+
+    ` : ""}
 
     <a href="/notifications.html">
     <button>Notifications</button>
