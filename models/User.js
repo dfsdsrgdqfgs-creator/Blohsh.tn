@@ -8,7 +8,12 @@ const UserSchema = new mongoose.Schema({
 
     password:String,
 
-    avatar:String
+    avatar:String,
+
+    role:{
+        type:String,
+        default:"user"
+    }
 
 });
 
