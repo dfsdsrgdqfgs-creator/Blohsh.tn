@@ -10,6 +10,7 @@ const path = require("path");
 const User = require("./models/User");
 const Post = require("./models/Post");
 const Comment = require("./models/Comment");
+const Notification = require("./models/Notification");
 
 const app = express();
 
@@ -161,6 +162,16 @@ app.post("/api/posts", auth, async(req,res)=>{
 
     await post.save();
 
+    const notification = new Notification({
+
+        username:req.user.username,
+
+        message:"created a new post"
+
+    });
+
+    await notification.save();
+
     res.json({
         message:"Post created"
     });
@@ -224,6 +235,17 @@ app.get("/api/users", async(req,res)=>{
     const users = await User.find();
 
     res.json(users);
+
+});
+
+app.get("/api/notifications", async(req,res)=>{
+
+    const notifications =
+    await Notification.find().sort({
+        createdAt:-1
+    });
+
+    res.json(notifications);
 
 });
 
