@@ -73,6 +73,20 @@ async function loadForum(){
     id="title"
     placeholder="Post title">
 
+    <select id="category">
+
+    <option>General</option>
+
+    <option>Games</option>
+
+    <option>Technology</option>
+
+    <option>News</option>
+
+    <option>Off Topic</option>
+
+    </select>
+
     <textarea id="content"
     placeholder="Write something..."></textarea>
 
@@ -149,7 +163,13 @@ async function loadPosts(){
 
                     <h3>${post.author}</h3>
 
-                    <small>${post.title}</small>
+                    <small>
+
+                    ${post.title}
+
+                    - ${post.category}
+
+                    </small>
 
                 </div>
 
@@ -200,7 +220,9 @@ async function createPost(){
 
             title:document.getElementById("title").value,
 
-            content:document.getElementById("content").value
+            content:document.getElementById("content").value,
+
+            category:document.getElementById("category").value
 
         })
 
