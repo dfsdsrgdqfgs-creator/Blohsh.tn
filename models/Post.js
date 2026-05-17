@@ -6,7 +6,9 @@ const PostSchema = new mongoose.Schema({
 
     content:String,
 
-    author:String
+    author:String,
+
+    category:String
 
 },{
     timestamps:true
