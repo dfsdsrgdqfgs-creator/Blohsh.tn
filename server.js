@@ -177,6 +177,16 @@ app.get("/api/posts", async(req,res)=>{
 
 });
 
+app.delete("/api/posts/:id", async(req,res)=>{
+
+    await Post.findByIdAndDelete(req.params.id);
+
+    res.json({
+        message:"Post deleted"
+    });
+
+});
+
 app.post("/api/comments", async(req,res)=>{
 
     const comment = new Comment({
