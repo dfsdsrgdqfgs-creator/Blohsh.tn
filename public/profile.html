@@ -16,6 +16,8 @@
 
 <div class="card">
 
+<img id="avatar" width="120" height="120" style="border-radius:50%;">
+
 <h2 id="username"></h2>
 
 <p>You are logged in successfully.</p>
@@ -44,6 +46,13 @@ const user = JSON.parse(atob(token.split(".")[1]));
 
 document.getElementById("username").innerText =
 "Welcome " + user.username;
+
+if(user.avatar){
+
+    document.getElementById("avatar").src =
+    "/uploads/" + user.avatar;
+
+}
 
 function logout(){
 
