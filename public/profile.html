@@ -5,6 +5,7 @@
 <title>Profile</title>
 <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
 
 <div class="navbar">
@@ -16,7 +17,14 @@
 <div class="card">
 
 <h2 id="username"></h2>
+
+<p>You are logged in successfully.</p>
+
 <button onclick="logout()">Logout</button>
+
+<a href="/">
+<button>Home</button>
+</a>
 
 </div>
 
@@ -27,12 +35,22 @@
 const token = localStorage.getItem("token");
 
 if(!token){
+
     window.location.href = "/login.html";
+
 }
 
+const user = JSON.parse(atob(token.split(".")[1]));
+
+document.getElementById("username").innerText =
+"Welcome " + user.username;
+
 function logout(){
+
     localStorage.removeItem("token");
+
     window.location.href = "/login.html";
+
 }
 
 </script>
