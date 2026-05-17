@@ -16,33 +16,24 @@
 
 <div class="card">
 
-<h2>Create Post</h2>
+<h1>Welcome to DarkForum</h1>
 
-<input type="text" id="title" placeholder="Post title">
+<p>
+Modern community forum with posts, comments,
+profiles and admin panel.
+</p>
 
-<textarea id="content" placeholder="Write something..."></textarea>
-
-<button onclick="createPost()">Publish</button>
-
-<a href="/profile.html">
-<button>Profile</button>
+<a href="/login.html">
+<button>Login</button>
 </a>
 
-<a href="/users.html">
-<button>Users</button>
+<a href="/register.html">
+<button>Create Account</button>
 </a>
-
-<a href="/admin.html">
-<button>Admin</button>
-</a>
-
-<button onclick="logout()">
-Logout
-</button>
 
 </div>
 
-<div id="posts"></div>
+<div id="forum"></div>
 
 </div>
 
@@ -50,13 +41,63 @@ Logout
 
 const token = localStorage.getItem("token");
 
-if(!token){
+if(token){
 
-    window.location.href = "/login.html";
+    loadForum();
 
 }
 
-const user = JSON.parse(atob(token.split(".")[1]));
+async function loadForum(){
+
+    const forum = document.getElementById("forum");
+
+    forum.innerHTML = `
+
+    <div class="card">
+
+    <h2>Create Post</h2>
+
+    <input type="text"
+    id="title"
+    placeholder="Post title">
+
+    <textarea id="content"
+    placeholder="Write something..."></textarea>
+
+    <button onclick="createPost()">
+
+    Publish
+
+    </button>
+
+    <a href="/profile.html">
+    <button>Profile</button>
+    </a>
+
+    <a href="/users.html">
+    <button>Users</button>
+    </a>
+
+    <a href="/admin.html">
+    <button>Admin</button>
+    </a>
+
+    <button onclick="logout()">
+    Logout
+    </button>
+
+    </div>
+
+    <div id="posts"></div>
+
+    `;
+
+    loadPosts();
+
+}
+
+const user =
+token ? JSON.parse(atob(token.split(".")[1])) : null;
 
 async function loadPosts(){
 
@@ -215,11 +256,9 @@ function logout(){
 
     localStorage.removeItem("token");
 
-    window.location.href = "/login.html";
+    window.location.href = "/";
 
 }
-
-loadPosts();
 
 </script>
 
