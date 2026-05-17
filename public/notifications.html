@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Notifications</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+    Notifications
+</div>
+
+<div class="container">
+
+<div id="notifications"></div>
+
+</div>
+
+<script>
+
+async function loadNotifications(){
+
+    const res =
+    await fetch("/api/notifications");
+
+    const notifications =
+    await res.json();
+
+    const div =
+    document.getElementById("notifications");
+
+    div.innerHTML = "";
+
+    notifications.forEach(n=>{
+
+        div.innerHTML += `
+
+        <div class="card">
+
+            <h3>${n.username}</h3>
+
+            <p>${n.message}</p>
+
+            <small>
+            ${new Date(n.createdAt).toLocaleString()}
+            </small>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+loadNotifications();
+
+</script>
+
+</body>
+</html>
