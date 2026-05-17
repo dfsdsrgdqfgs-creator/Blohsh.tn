@@ -1,0 +1,47 @@
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Arial;
+    margin:0;
+}
+
+.navbar{
+    background:#111827;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+    color:#38bdf8;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:auto;
+    margin-top:50px;
+}
+
+.card{
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+}
+
+h1{
+    color:#38bdf8;
+}
+
+p{
+    color:#cbd5e1;
+    margin-bottom:25px;
+}
+
+button{
+    background:#38bdf8;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    margin:10px;
+}
