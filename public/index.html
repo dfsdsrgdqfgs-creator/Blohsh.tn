@@ -95,6 +95,35 @@ async function loadForum(){
     placeholder="Search posts..."
     onkeyup="searchPosts()">
 
+    <select id="filter"
+    onchange="filterCategory()">
+
+    <option value="All">
+    All Categories
+    </option>
+
+    <option value="General">
+    General
+    </option>
+
+    <option value="Games">
+    Games
+    </option>
+
+    <option value="Technology">
+    Technology
+    </option>
+
+    <option value="News">
+    News
+    </option>
+
+    <option value="Off Topic">
+    Off Topic
+    </option>
+
+    </select>
+
     <button onclick="createPost()">
 
     Publish
@@ -329,6 +358,53 @@ function searchPosts(){
             <p>${post.content}</p>
 
             <small>${post.author}</small>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+function filterCategory(){
+
+    const category =
+    document.getElementById("filter").value;
+
+    const div =
+    document.getElementById("posts");
+
+    div.innerHTML = "";
+
+    const filtered =
+    category === "All"
+
+    ? allPosts
+
+    : allPosts.filter(post =>
+
+        post.category === category
+
+    );
+
+    filtered.forEach(post=>{
+
+        div.innerHTML += `
+
+        <div class="card">
+
+            <h2>${post.title}</h2>
+
+            <p>${post.content}</p>
+
+            <small>
+
+            ${post.author}
+
+            - ${post.category}
+
+            </small>
 
         </div>
 
