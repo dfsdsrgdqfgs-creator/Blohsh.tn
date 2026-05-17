@@ -23,6 +23,14 @@ Modern community forum with posts, comments,
 profiles and admin panel.
 </p>
 
+<div class="card">
+
+<h2>Forum Stats</h2>
+
+<p id="stats"></p>
+
+</div>
+
 <a href="/login.html">
 <button>Login</button>
 </a>
@@ -40,6 +48,8 @@ profiles and admin panel.
 <script>
 
 const token = localStorage.getItem("token");
+
+loadStats();
 
 if(token){
 
@@ -194,6 +204,8 @@ async function createPost(){
 
     loadPosts();
 
+    loadStats();
+
 }
 
 async function addComment(postId){
@@ -297,6 +309,31 @@ function searchPosts(){
         `;
 
     });
+
+}
+
+async function loadStats(){
+
+    const postsRes =
+    await fetch("/api/posts");
+
+    const posts =
+    await postsRes.json();
+
+    const usersRes =
+    await fetch("/api/users");
+
+    const users =
+    await usersRes.json();
+
+    document.getElementById("stats")
+    .innerHTML =
+
+    `
+    Members: ${users.length}
+    <br>
+    Posts: ${posts.length}
+    `;
 
 }
 
