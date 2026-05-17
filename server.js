@@ -41,7 +41,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-const SECRET = "forum_secret_key";
+const SECRET = process.env.JWT_SECRET;
 
 function auth(req,res,next){
 
@@ -165,7 +165,9 @@ app.post("/api/posts", auth, async(req,res)=>{
 
         content:req.body.content,
 
-        author:req.user.username
+        author:req.user.username,
+
+        category:req.body.category
 
     });
 
