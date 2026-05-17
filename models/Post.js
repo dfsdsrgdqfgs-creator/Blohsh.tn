@@ -8,7 +8,9 @@ const PostSchema = new mongoose.Schema({
 
     author:String,
 
-    category:String
+    category:String,
+
+    image:String
 
 },{
     timestamps:true
