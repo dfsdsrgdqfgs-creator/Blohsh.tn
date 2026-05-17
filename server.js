@@ -88,12 +88,19 @@ app.post("/api/register", upload.single("avatar"), async(req,res)=>{
 
     const hashed = await bcrypt.hash(password,10);
 
+    const count = await User.countDocuments();
+
     const user = new User({
 
         username,
+
         email,
+
         password:hashed,
-        avatar:req.file ? req.file.filename : ""
+
+        avatar:req.file ? req.file.filename : "",
+
+        role: count === 0 ? "admin" : "user"
 
     });
 
