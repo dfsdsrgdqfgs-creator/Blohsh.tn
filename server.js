@@ -199,7 +199,15 @@ app.get("/api/posts", async(req,res)=>{
 
 });
 
-app.delete("/api/posts/:id", async(req,res)=>{
+app.delete("/api/posts/:id", auth, async(req,res)=>{
+
+    if(req.user.role !== "admin"){
+
+        return res.status(403).json({
+            message:"Access denied"
+        });
+
+    }
 
     await Post.findByIdAndDelete(req.params.id);
 
