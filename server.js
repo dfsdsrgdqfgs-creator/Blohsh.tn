@@ -12,7 +12,7 @@ const Post = require("./models/Post");
 
 const app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/forumdb")
+mongodb+srv://dfsdsrgdqfgs_db_user:zivIWTYY7Z4ufVQC@cluster0.knyubbm.mongodb.net/?appName=Cluster0
 .then(() => console.log("MongoDB Connected"));
 
 app.use(express.json());
