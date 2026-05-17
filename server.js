@@ -157,7 +157,7 @@ app.post("/api/login", async(req,res)=>{
 
 });
 
-app.post("/api/posts", auth, async(req,res)=>{
+app.post("/api/posts", auth, upload.single("image"), async(req,res)=>{
 
     const post = new Post({
 
@@ -167,7 +167,9 @@ app.post("/api/posts", auth, async(req,res)=>{
 
         author:req.user.username,
 
-        category:req.body.category
+        category:req.body.category,
+
+        image:req.file ? req.file.filename : ""
 
     });
 
